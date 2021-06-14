@@ -1,0 +1,295 @@
+{% extends 'base1.html'%}
+{% load static%}
+
+{% block content %}
+
+      <!-- Main content -->
+      <section class="content">
+        <div class="container-fluid">
+
+
+         <!-- content              -->
+<div class="row mt">
+      <div class="col-lg-12">
+        <div class="form-panel">
+          <h4 class="mb">Invoice </h4>
+          <form class="form-horizontal style-form" method="POST"  enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+
+              <label class="col-sm-2 col-sm-2 control-label"> Invoice For</label>
+              <div class="col-sm-10">
+
+
+
+              </div>
+            </div>
+            <div class="form-group">
+
+              <label class="col-sm-2 col-sm-2 control-label"> Vendor</label>
+              <div class="col-sm-10">
+
+              </div>
+            </div>
+            <div class="form-group">
+
+              <label class="col-sm-2 col-sm-2 control-label"> Cost Center/ Project Number</label>
+              <div class="col-sm-10">
+
+
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 col-sm-2 control-label">RML Number </label>
+              <div class="col-sm-10">
+
+                <!--                                <select class="form-control round-form" name="rml" id="id_rml">-->
+                <!--                                    {% for i  in item %}-->
+                <!--                                    <option value="{{i.rml_no}}">{{i.rml_no}}</option>-->
+                <!--                                    {% endfor %}-->
+                <!--                                </select>-->
+
+                {{bookform.rml}}
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 col-sm-2 control-label">Purchase Order ID</label>
+              <div class="col-sm-10">
+                {{bookform.po_no}}
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 col-sm-2 control-label">Invoice Date</label>
+              <div class="col-sm-10">
+                {{bookform.invoice_date}}
+              </div>
+            </div>
+            <table class="table" >
+              <thead>
+              <tr>
+                <!--                                <th style="width:60px" class="text-center"> SNo.</th>-->
+                <th style="width:60px" class="text-center">Description</th>
+                <th style="width:60px" class="text-center">Quantity</th>
+                <th style="width:60px" class="text-center">Amount</th>
+                <th style="width:60px" class="text-center">GST Rate</th>
+                <th style="width:60px" class="text-center">CGST</th>
+                <TH style="width:60px" class="text-center">SGST</TH>
+                <TH style="width:60px" class="text-center">IGST</TH>
+                <TH style="width:60px" class="text-center">Total</TH>
+                <TH style="width:60px" class="text-center">Action</TH>
+              </tr>
+              </thead>
+              <tbody>
+              {{ formset.management_form }}
+              {% for form in formset %}
+              <tr class="form-row spacer" id="mytable">
+                <td>
+                  <div class="form-group">
+                    <div class="col-sm-10">
+
+                      {{form.description}}
+
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-group">
+                    <div class="col-sm-10">
+                      {{form.quantity}}
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-group">
+                    <div class="col-sm-10">
+                      {{form.amount}}
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-group">
+                    <div class="col-sm-10">
+                      {{form.gst}}
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-group">
+                    <div class="col-sm-10">
+                      {{form.cgst}}
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-group">
+                    <div class="col-sm-10">
+                      {{form.sgst}}
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-group">
+                    <div class="col-sm-10">
+                      {{form.igst}}
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-group">
+                    <div class="col-sm-10">
+                      {{form.total}}
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="input-group-append">
+                    <button class="btn btn-success add-form-row" onclick="addField(this);">+</button>
+                  </div>
+                </td>
+              </tr>
+              {% endfor %}
+              <tr>
+                <td>
+                  <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Total</label>
+
+                  </div>
+                </td>
+                <td>
+                  <div class="form-group">
+                    <div class="col-sm-10">
+                      {{bookform.total_amount}}
+                    </div>
+                  </div>
+
+                </td>
+                <td>
+
+
+                </td>
+                <td>
+                  <div class="form-group">
+                    <div class="col-sm-10">
+                      {{bookform.total_gst}}
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-group">
+                    <div class="col-sm-10">
+                      {{bookform.total_cgst}}
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-group">
+                    <div class="col-sm-10">
+                      {{bookform.total_sgst}}
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-group">
+                    <div class="col-sm-10">
+                      {{bookform.total_igst}}
+                    </div>
+                  </div>
+                </td>
+
+              </tr>
+              </tbody>
+
+            </table>
+            <div align="center" >
+              <button class="btn btn-warning" type="button" onclick="getADD();">Calculate</button>
+            </div>
+            <br>
+
+            <div class="form-group">
+              <label class="col-sm-2 col-sm-2 control-label">Total</label>
+              <div class="col-sm-10">
+                {{bookform.grand_total}}
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 col-sm-2 control-label">Remarks  </label>
+              <div class="col-sm-10">
+                {{bookform.remark}}
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 col-sm-2 control-label">Due Date  </label>
+              <div class="col-sm-10">
+                {{bookform.due_date}}
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 col-sm-2 control-label">Terms and Condition   </label>
+              <div class="col-sm-10">
+                {{bookform.terms}}
+              </div>
+            </div>
+            <!--                        <div class="form-group">-->
+            <!--                            <div class="col-sm-10">-->
+            <!--                                <button class="btn btn-primary" type="submit">Submit</button>-->
+            <!--                            </div>-->
+            <!--                        </div>-->
+            <br>
+
+            <div class="row spacer">
+              <div class="col-sm-2 col-sm-2 control-label">
+                <button class="btn btn-primary" type="submit">Submit</button>
+              </div>
+            </div>
+          </form>
+          <script>
+
+                            function getADD(){
+                                var p=document.getElementById("id_form-TOTAL_FORMS").value;
+                                var q=0;
+                                var t=0;
+                                var g=0;
+                                var g=0;
+                                var c=0;
+                                var s=0;
+                                var i=0;
+                                var ig=0;
+                                var r=0;
+                                for(var i=0;i<p;i++) {
+                                    var q1 = Number(document.getElementById("id_form-"+i+"-quantity").value);
+                                    var t1 = Number(document.getElementById("id_form-"+i+"-amount").value);
+                                    r1= q1*t1;
+                                    var c1 = Number(document.getElementById("id_form-"+i+"-cgst").value);
+                                    var s1 = Number(document.getElementById("id_form-"+i+"-sgst").value);
+                                    var i1 = Number(document.getElementById("id_form-"+i+"-igst").value);
+                                    tot= c1+s1+r1+i1;
+                                    document.getElementById("id_form-"+i+"-total").value = tot;
+                                    r += r1;
+                                    c += c1;
+                                    s += s1;
+                                    ig += i1;
+
+                                }
+                                document.getElementById("id_total_amount").value= r;
+                                document.getElementById("id_total_cgst").value=c;
+                                document.getElementById("id_total_sgst").value=s;
+                                document.getElementById("id_total_igst").value = ig;
+                                var st = r+c+s+ig;
+                                document.getElementById("id_grand_total").value=st;
+
+
+
+                            }
+                        </script>
+        </div>
+      </div>
+    </div>
+    </div>
+
+         
+        </div><!-- /.container-fluid -->
+      </section>
+      <!-- /.content -->
+    </div>
+
+    {% endblock %}
